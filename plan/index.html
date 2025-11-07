@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>6-Jar Portfolio & Longevity Planner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-elevated: #0f172a;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56,189,248,0.14);
+      --danger: #f97316;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: rgba(148,163,253,0.18);
+      --radius-xl: 24px;
+      --radius-md: 14px;
+      --shadow-soft: 0 18px 55px rgba(15,23,42,0.85);
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      --transition-fast: 0.22s ease-out;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 24px 12px 40px;
+      font-family: var(--font-sans);
+      background: radial-gradient(circle at top, #111827 0, #020817 40%, #000 100%);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 1200px;
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.04), transparent 55%) fixed,
+        radial-gradient(circle at top right, rgba(129,140,248,0.05), transparent 55%) fixed,
+        rgba(2,6,23,0.98);
+      border-radius: 32px;
+      padding: 24px 18px 26px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148,163,253,0.12);
+      backdrop-filter: blur(22px);
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 4px 6px 14px;
+      border-bottom: 1px solid rgba(75,85,99,0.45);
+      margin-bottom: 18px;
+    }
+
+    .title-block { display:flex; flex-direction:column; gap:4px; }
+
+    h1 {
+      font-size: 1.5rem;
+      margin: 0;
+      letter-spacing: 0.02em;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    h1 span.badge {
+      font-size: 0.68rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(56,189,248,0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .subtitle {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .pill-note {
+      font-size: 0.7rem;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(75,85,99,0.7);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(10px);
+    }
+
+    .pill-dot {
+      width: 6px; height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1.4fr);
+      gap: 14px;
+    }
+
+    .card {
+      background: radial-gradient(circle at top, rgba(15,23,42,0.9), #020817);
+      border-radius: var(--radius-xl);
+      padding: 14px 12px 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 12px 38px rgba(15,23,42,0.95);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card h2 {
+      font-size: 0.95rem;
+      margin: 0 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #e5e7ff;
+    }
+
+    .card h2 span.icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      color: var(--accent);
+    }
+
+    .label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      font-size: 0.73rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .input-group { margin-bottom: 8px; }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 8px 8px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(75,85,99,0.9);
+      background: rgba(2,6,23,0.98);
+      color: var(--text);
+      font-size: 0.8rem;
+      outline: none;
+      transition: border var(--transition-fast),
+                  box-shadow var(--transition-fast),
+                  background var(--transition-fast),
+                  transform var(--transition-fast);
+    }
+
+    input[type="number"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56,189,248,0.12);
+      transform: translateY(-1px);
+      background: #020817;
+    }
+
+    select {
+      width: 100%;
+      padding: 6px 7px;
+      border-radius: 10px;
+      border: 1px solid rgba(75,85,99,0.9);
+      background: rgba(2,6,23,0.98);
+      color: var(--text);
+      font-size: 0.68rem;
+      outline: none;
+    }
+
+    .hint {
+      font-size: 0.63rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .split-row {
+      display: grid;
+      grid-template-columns: 1.6fr 1.1fr;
+      gap: 6px;
+      margin-top: 6px;
+      align-items: center;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(75,85,99,0.9);
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+      cursor: pointer;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.6rem;
+      border: 1px solid rgba(75,85,99,0.9);
+      color: var(--muted);
+      gap: 4px;
+      align-items: center;
+    }
+
+    .tag strong { color: var(--accent); font-weight: 500; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.75rem;
+      cursor: pointer;
+      margin-top: 6px;
+      background: linear-gradient(to right, var(--accent), #6366f1);
+      color: #020817;
+      font-weight: 600;
+      box-shadow: 0 8px 22px rgba(15,23,42,0.9);
+      transition: all var(--transition-fast);
+    }
+
+    .btn span.icon { font-size: 0.8rem; }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 32px rgba(15,23,42,0.95);
+    }
+
+    .btn.secondary {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid rgba(75,85,99,0.85);
+      box-shadow: none;
+      margin-left: 4px;
+    }
+
+    .btn.secondary:hover {
+      background: rgba(15,23,42,0.98);
+      box-shadow: 0 10px 28px rgba(15,23,42,0.9);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .summary-item {
+      padding: 6px 7px;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at top, rgba(56,189,248,0.03), transparent),
+        rgba(2,6,23,1);
+      border: 1px solid rgba(75,85,99,0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .summary-label {
+      font-size: 0.6rem;
+      color: var(--muted);
+    }
+
+    .summary-value {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #e5e7ff;
+    }
+
+    .summary-chip {
+      font-size: 0.58rem;
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: rgba(15,23,42,1);
+      color: var(--accent);
+      align-self: flex-start;
+      margin-top: 1px;
+    }
+
+    .status-line {
+      margin-top: 6px;
+      font-size: 0.7rem;
+      padding: 4px 7px;
+      border-radius: 14px;
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .status-ok {
+      background: rgba(22,163,74,0.1);
+      color: #4ade80;
+      border: 1px solid rgba(22,163,74,0.4);
+    }
+
+    .status-warn {
+      background: rgba(248,250,252,0.02);
+      color: var(--danger);
+      border: 1px solid rgba(248,250,252,0.08);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: currentColor;
+    }
+
+    .mf-fd-breakup {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 5px;
+      margin-top: 8px;
+      font-size: 0.65rem;
+    }
+
+    .mf, .fd {
+      padding: 4px 6px;
+      border-radius: 12px;
+      border: 1px solid rgba(75,85,99,0.9);
+      background: rgba(2,6,23,0.98);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .mf-title, .fd-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .mf-title span.label,
+    .fd-title span.label {
+      font-size: 0.6rem;
+      color: var(--muted);
+    }
+
+    .mf-amt, .fd-amt {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #e5e7ff;
+    }
+
+    .yield-line {
+      font-size: 0.6rem;
+      color: var(--muted);
+    }
+
+    /* Other income */
+    .income-list {
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .income-row {
+      display: grid;
+      grid-template-columns: minmax(0,1.5fr) minmax(0,1fr) auto;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .income-name {
+      padding: 5px 7px;
+      border-radius: 10px;
+      border: 1px solid rgba(75,85,99,0.9);
+      background: rgba(2,6,23,0.98);
+      color: var(--text);
+      font-size: 0.68rem;
+      outline: none;
+    }
+
+    .income-amt {
+      padding: 5px 7px;
+      border-radius: 10px;
+      border: 1px solid rgba(75,85,99,0.9);
+      background: rgba(2,6,23,0.98);
+      color: var(--text);
+      font-size: 0.68rem;
+      outline: none;
+    }
+
+    .income-del {
+      border: none;
+      background: transparent;
+      color: var(--danger);
+      font-size: 0.7rem;
+      cursor: pointer;
+      padding: 0 4px;
+    }
+
+    /* 6 Jars */
+    .jar-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .jar {
+      padding: 5px 5px 4px;
+      border-radius: 12px;
+      background: rgba(2,6,23,1);
+      border: 1px solid rgba(75,85,99,0.95);
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      position: relative;
+    }
+
+    .jar-name {
+      font-size: 0.64rem;
+      font-weight: 500;
+      color: #bfdbfe;
+    }
+
+    .jar-pct-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.58rem;
+      color: var(--muted);
+    }
+
+    .jar-pct-row input {
+      width: 42px;
+      padding: 2px 4px;
+      font-size: 0.56rem;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid rgba(75,85,99,0.9);
+      outline: none;
+      text-align: right;
+    }
+
+    .jar-amt {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: #e5e7ff;
+    }
+
+    .jar-sub {
+      font-size: 0.53rem;
+      color: var(--muted);
+    }
+
+    .jar-pill {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      font-size: 0.48rem;
+      padding: 1px 4px;
+      border-radius: 999px;
+      background: rgba(15,23,42,1);
+      color: var(--accent);
+      border: 1px solid rgba(56,189,248,0.22);
+    }
+
+    .jar-total-line {
+      margin-top: 4px;
+      font-size: 0.6rem;
+      padding: 3px 6px;
+      border-radius: 999px;
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      background: rgba(2,6,23,1);
+      border: 1px solid rgba(75,85,99,0.9);
+      color: var(--muted);
+    }
+
+    .jar-total-line strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .jar-total-line span.warn {
+      color: var(--danger);
+      font-size: 0.6rem;
+    }
+
+    .note-small {
+      font-size: 0.55rem;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .highlight { color: var(--accent); }
+
+    /* Advanced longevity card */
+    .adv-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 4px;
+      margin-top: 4px;
+      font-size: 0.62rem;
+    }
+
+    .adv-grid .input-wrap {
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+
+    .adv-label { color: var(--muted); }
+
+    .adv-result {
+      margin-top: 6px;
+      font-size: 0.6rem;
+      padding: 4px 6px;
+      border-radius: 10px;
+      border: 1px solid rgba(75,85,99,0.8);
+      background: rgba(2,6,23,1);
+      color: var(--muted);
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+
+    .adv-ok { color: #4ade80; }
+    .adv-bad { color: var(--danger); }
+
+    /* Profiles */
+    .profiles {
+      display:flex;
+      flex-wrap:wrap;
+      gap:4px;
+      margin:4px 0 2px;
+      font-size:0.6rem;
+    }
+    .profile-btn {
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid rgba(75,85,99,0.8);
+      background:rgba(2,6,23,1);
+      color:var(--muted);
+      cursor:pointer;
+      transition:all var(--transition-fast);
+    }
+    .profile-btn.active,
+    .profile-btn:hover {
+      color:var(--accent);
+      border-color:var(--accent);
+      box-shadow:0 0 12px rgba(56,189,248,0.18);
+    }
+
+    @media (max-width: 820px) {
+      body { padding: 8px; }
+      .app { padding: 16px 10px 18px; border-radius: 22px; }
+      main { grid-template-columns: 1fr; }
+      header { gap: 6px; }
+      h1 { font-size: 1.22rem; }
+      .adv-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .income-row { grid-template-columns: minmax(0,1.3fr) minmax(0,1fr) auto; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="title-block">
+      <h1>
+        6-Jar Portfolio & Longevity Planner
+        <span class="badge">INR • Capital-Preserved Mindset</span>
+      </h1>
+      <div class="subtitle">
+        One canvas for: corpus, yield, multi-income, 6-jar discipline & lifespan realism.
+      </div>
+    </div>
+    <div class="pill-note">
+      <span class="pill-dot"></span>
+      Tool = scenarios, not prophecy. You stay in control.
+    </div>
+  </header>
+
+  <main>
+    <!-- LEFT: Core & Longevity -->
+    <section class="card" id="core-card">
+      <h2><span class="icon">₹</span> Core Inputs & Yield Logic</h2>
+
+      <div class="input-group">
+        <div class="label-row">
+          <label for="monthlyIncome">Desired Monthly Income (₹ today)</label>
+          <span>Total lifestyle cashflow target.</span>
+        </div>
+        <input type="number" id="monthlyIncome" placeholder="e.g. 100000" min="0" />
+        <div class="hint">In today's rupees. Portfolio + all other incomes should aim to cover this.</div>
+      </div>
+
+      <div class="input-group">
+        <div class="label-row">
+          <label for="capital">Available Capital (₹)</label>
+          <span id="crView">≈ 0.00 Cr</span>
+        </div>
+        <input type="number" id="capital" placeholder="e.g. 20000000 for 2 Cr" min="0" />
+        <div class="hint">Corpus reserved for this engine (excluding absolute do-not-touch stash, if any).</div>
+      </div>
+
+      <div class="label-row" style="margin-top:4px;">
+        <div>Profiles</div>
+        <div class="hint">Quick presets. Tweak after if needed.</div>
+      </div>
+      <div class="profiles">
+        <div class="profile-btn" data-profile="conservative">Conservative</div>
+        <div class="profile-btn" data-profile="balanced">Balanced</div>
+        <div class="profile-btn" data-profile="aggressive">Aggressive</div>
+        <div class="profile-btn active" data-profile="custom">Custom</div>
+      </div>
+
+      <div class="input-group">
+        <div class="label-row">
+          <div>Portfolio Split: Mutual Funds vs FD</div>
+          <div class="tag">
+            <span>MF Exp. Return: <strong id="mfRateLabel">12%</strong></span>
+            <span>FD: <strong id="fdRateLabel">7%</strong></span>
+          </div>
+        </div>
+
+        <div class="split-row">
+          <div>
+            <input type="range" id="mfPct" min="0" max="100" value="60" />
+            <div class="label-row">
+              <span class="hint">Equity / growth portion.</span>
+              <span class="hint">
+                MF <span class="highlight" id="mfPctVal">60</span>% •
+                FD <span class="highlight" id="fdPctVal">40</span>%
+              </span>
+            </div>
+          </div>
+          <div>
+            <div class="label-row">
+              <span class="hint">Return assumptions:</span>
+            </div>
+            <div style="display:flex; gap:4px;">
+              <input type="number" id="mfRate" min="0" max="30" step="0.5" value="12" title="MF CAGR %" />
+              <input type="number" id="fdRate" min="0" max="15" step="0.25" value="7" title="FD Rate %" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Other Incomes -->
+      <h2 style="margin-top:10px;"><span class="icon">＋</span> Other Monthly Income Sources</h2>
+      <div class="note-small">
+        Salary, rent, business, pensions, etc. These reduce pressure on corpus and can be used to feed FFA / PLAY / GIVE.
+      </div>
+      <div id="incomeList" class="income-list"></div>
+      <button class="btn secondary" id="addIncomeBtn">
+        <span class="icon">＋</span>Add income source
+      </button>
+      <div class="hint">
+        Total other income: <span class="highlight" id="otherIncomeTotal">₹0</span>
+      </div>
+
+      <button class="btn" id="calcBtn">
+        <span class="icon">⚡</span>Compute Portfolio & 6-Jar Map
+      </button>
+      <button class="btn secondary" id="resetBtn">
+        <span class="icon">↺</span>Reset
+      </button>
+
+      <div class="summary-grid">
+        <div class="summary-item">
+          <div class="summary-label">Total Target Annual Income</div>
+          <div class="summary-value" id="targetAnnual">₹0</div>
+          <div class="summary-chip">Desired monthly × 12</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">Need from Portfolio / Year</div>
+          <div class="summary-value" id="needFromPortfolioAnnual">₹0</div>
+          <div class="summary-chip">After other incomes</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">Required Corpus @ This Mix</div>
+          <div class="summary-value" id="requiredCorpus">₹0</div>
+          <div class="summary-chip">To cover need-from-portfolio</div>
+        </div>
+      </div>
+
+      <div id="statusLine" class="status-line status-warn" style="display:none;">
+        <div class="status-dot"></div>
+        <div id="statusText"></div>
+      </div>
+
+      <div class="mf-fd-breakup" id="mfFdBlock" style="display:none;">
+        <div class="mf">
+          <div class="mf-title">
+            <span class="label">Mutual Funds</span>
+            <span class="label" id="mfPctLabelSmall">60%</span>
+          </div>
+          <div class="mf-amt" id="mfAmt">₹0</div>
+          <div class="yield-line" id="mfYieldLine">Est. yearly yield: ₹0</div>
+        </div>
+        <div class="fd">
+          <div class="fd-title">
+            <span class="label">FD / Debt</span>
+            <span class="label" id="fdPctLabelSmall">40%</span>
+          </div>
+          <div class="fd-amt" id="fdAmt">₹0</div>
+          <div class="yield-line" id="fdYieldLine">Est. yearly yield: ₹0</div>
+        </div>
+      </div>
+
+      <div class="note-small">
+        This block: “Given all incomes, what must corpus do in Year 1?” Longevity below checks if this holds over decades.
+      </div>
+
+      <!-- Advanced Longevity & Inflation -->
+      <h2 style="margin-top:10px;"><span class="icon">∞</span> Longevity & Reality Check</h2>
+      <div class="adv-grid">
+        <div class="input-wrap">
+          <div class="adv-label">Horizon (years)</div>
+          <input type="number" id="horizon" min="1" max="80" value="30">
+        </div>
+        <div class="input-wrap">
+          <div class="adv-label">Inflation %</div>
+          <input type="number" id="inflation" min="0" max="15" step="0.25" value="5">
+        </div>
+        <div class="input-wrap">
+          <div class="adv-label">Lifestyle & health drift %</div>
+          <input type="number" id="lifeDrift" min="0" max="15" step="0.25" value="2">
+        </div>
+        <div class="input-wrap">
+          <div class="adv-label">Surplus reinvest %</div>
+          <input type="number" id="reinvest" min="0" max="100" step="5" value="50">
+        </div>
+      </div>
+      <div class="hint">
+        Yearly need-from-portfolio grows by (inflation + drift). Corpus grows by blended return.
+        Surplus (if any) partly tops up capital. Simple, transparent stress-test.
+      </div>
+
+      <div class="adv-result" id="advResult">
+        Run the main calculation to see if this plan survives your chosen horizon.
+      </div>
+    </section>
+
+    <!-- RIGHT: 6 Jar Allocation + Anchor -->
+    <section class="card">
+      <h2><span class="icon">◔</span> 6-Jar Income Allocation</h2>
+
+      <div class="label-row">
+        <span>Jar base: <span class="highlight" id="jarBaseMode">Desired monthly income (Year 1)</span></span>
+        <span class="hint">Visualizes how all inflows shape your lifestyle & growth mix.</span>
+      </div>
+
+      <div class="label-row" style="margin-top:4px;">
+        <span>Anchor goal (optional)</span>
+        <span class="hint">“I want this jar at ₹X/month” → required base & corpus.</span>
+      </div>
+      <div class="adv-grid" style="grid-template-columns: minmax(0,1.4fr) minmax(0,1.6fr); margin-top:0;">
+        <div class="input-wrap">
+          <div class="adv-label">Anchor Jar</div>
+          <select id="anchorJar">
+            <option value="NONE">None</option>
+            <option value="FFA">FFA • Financial Freedom</option>
+            <option value="PLAY">PLAY • Play</option>
+            <option value="GIVE">GIVE • Give</option>
+            <option value="LTSS">LTSS • Long-Term Savings</option>
+            <option value="NEC">NEC • Necessities</option>
+            <option value="EDU">EDU • Education</option>
+          </select>
+        </div>
+        <div class="input-wrap">
+          <div class="adv-label">Target for anchor jar (₹/month)</div>
+          <input type="number" id="anchorTarget" min="0" placeholder="e.g. 50000">
+        </div>
+      </div>
+      <div class="note-small" id="anchorResult">
+        Optional: pick a jar & target to see what corpus would be needed at current returns & percentages.
+      </div>
+
+      <div class="jar-grid" id="jarGrid">
+        <!-- populated by JS -->
+      </div>
+
+      <div class="jar-total-line" id="jarTotalLine">
+        <span>Jar % Total: <strong id="jarPctTotal">0%</strong></span>
+        <span id="jarTotalWarn" class="warn" style="display:none;">Align to 100% for a clean system.</span>
+      </div>
+
+      <div class="note-small">
+        Defaults:
+        NEC 55% • FFA 10% • LTSS 10% • EDU 10% • PLAY 10% • GIVE 5%.<br/>
+        Extra incomes + strong corpus → more power to FFA / PLAY / GIVE without guilt.
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  // --- Elements ---
+  const monthlyIncomeInput = document.getElementById('monthlyIncome');
+  const capitalInput = document.getElementById('capital');
+  const crView = document.getElementById('crView');
+
+  const mfPctRange = document.getElementById('mfPct');
+  const mfPctVal = document.getElementById('mfPctVal');
+  const fdPctVal = document.getElementById('fdPctVal');
+  const mfRateInput = document.getElementById('mfRate');
+  const fdRateInput = document.getElementById('fdRate');
+  const mfRateLabel = document.getElementById('mfRateLabel');
+  const fdRateLabel = document.getElementById('fdRateLabel');
+
+  const profileBtns = document.querySelectorAll('.profile-btn');
+
+  const incomeList = document.getElementById('incomeList');
+  const addIncomeBtn = document.getElementById('addIncomeBtn');
+  const otherIncomeTotalEl = document.getElementById('otherIncomeTotal');
+
+  const calcBtn = document.getElementById('calcBtn');
+  const resetBtn = document.getElementById('resetBtn');
+
+  const targetAnnualEl = document.getElementById('targetAnnual');
+  const needFromPortfolioAnnualEl = document.getElementById('needFromPortfolioAnnual');
+  const requiredCorpusEl = document.getElementById('requiredCorpus');
+  const yieldRateChip = document.createElement('div'); // for compatibility (no longer shown here)
+
+  const statusLine = document.getElementById('statusLine');
+  const statusText = document.getElementById('statusText');
+
+  const mfFdBlock = document.getElementById('mfFdBlock');
+  const mfPctLabelSmall = document.getElementById('mfPctLabelSmall');
+  const fdPctLabelSmall = document.getElementById('fdPctLabelSmall');
+  const mfAmtEl = document.getElementById('mfAmt');
+  const fdAmtEl = document.getElementById('fdAmt');
+  const mfYieldLine = document.getElementById('mfYieldLine');
+  const fdYieldLine = document.getElementById('fdYieldLine');
+
+  const jarGrid = document.getElementById('jarGrid');
+  const jarPctTotalEl = document.getElementById('jarPctTotal');
+  const jarTotalWarn = document.getElementById('jarTotalWarn');
+  const jarBaseModeEl = document.getElementById('jarBaseMode');
+
+  // Advanced / longevity
+  const horizonInput = document.getElementById('horizon');
+  const inflationInput = document.getElementById('inflation');
+  const lifeDriftInput = document.getElementById('lifeDrift');
+  const reinvestInput = document.getElementById('reinvest');
+  const advResultEl = document.getElementById('advResult');
+
+  // Anchor jar
+  const anchorJarSelect = document.getElementById('anchorJar');
+  const anchorTargetInput = document.getElementById('anchorTarget');
+  const anchorResultEl = document.getElementById('anchorResult');
+
+  const STORAGE_KEY = 'sixJarPortfolioPlanner_v3';
+
+  const DEFAULT_JARS = [
+    { key: 'NEC',  name: 'Necessities',         pct: 55, desc: 'Fixed living, must-pay bills.' },
+    { key: 'FFA',  name: 'Financial Freedom',   pct: 10, desc: 'Investments & compounding.' },
+    { key: 'LTSS', name: 'Long-Term Savings',   pct: 10, desc: 'Big goals: home, land, etc.' },
+    { key: 'EDU',  name: 'Education',           pct: 10, desc: 'Learning & skills.' },
+    { key: 'PLAY', name: 'Play',                pct: 10, desc: 'Joy & experiences.' },
+    { key: 'GIVE', name: 'Give',                pct: 5,  desc: 'Charity / family support.' }
+  ];
+
+  // --- Helpers ---
+  const fmt = (n) => {
+    if (!isFinite(n) || n <= 0) return '₹0';
+    const abs = Math.abs(n);
+    if (abs >= 1e7) return '₹' + (n / 1e7).toFixed(2) + ' Cr';
+    if (abs >= 1e5) return '₹' + (n / 1e5).toFixed(2) + ' L';
+    return '₹' + n.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+  };
+
+  const loadState = () => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const saveState = () => {
+    const jars = Array.from(jarGrid.querySelectorAll('.jar')).map(j => {
+      const key = j.dataset.key;
+      const pct = parseFloat(j.querySelector('.jar-pct-input').value) || 0;
+      return { key, pct };
+    });
+    const incomes = Array.from(incomeList.querySelectorAll('.income-row')).map(r => ({
+      name: r.querySelector('.income-name').value || '',
+      amt: parseFloat(r.querySelector('.income-amt').value) || 0
+    }));
+    const state = {
+      monthly: parseFloat(monthlyIncomeInput.value) || 0,
+      capital: parseFloat(capitalInput.value) || 0,
+      mfPct: parseFloat(mfPctRange.value) || 60,
+      mfRate: parseFloat(mfRateInput.value) || 12,
+      fdRate: parseFloat(fdRateInput.value) || 7,
+      horizon: parseFloat(horizonInput.value) || 30,
+      inflation: parseFloat(inflationInput.value) || 5,
+      lifeDrift: parseFloat(lifeDriftInput.value) || 2,
+      reinvest: parseFloat(reinvestInput.value) || 50,
+      jars,
+      incomes,
+      anchorJar: anchorJarSelect.value,
+      anchorTarget: parseFloat(anchorTargetInput.value) || 0
+    };
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch {}
+  };
+
+  // --- Profiles ---
+  const setProfile = (profile) => {
+    profileBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.profile === profile);
+    });
+
+    if (profile === 'conservative') {
+      mfPctRange.value = 30;
+      mfRateInput.value = 10;
+      fdRateInput.value = 7;
+      horizonInput.value = 30;
+      reinvestInput.value = 60;
+    } else if (profile === 'balanced') {
+      mfPctRange.value = 60;
+      mfRateInput.value = 12;
+      fdRateInput.value = 7;
+      horizonInput.value = 30;
+      reinvestInput.value = 50;
+    } else if (profile === 'aggressive') {
+      mfPctRange.value = 80;
+      mfRateInput.value = 14;
+      fdRateInput.value = 7;
+      horizonInput.value = 35;
+      reinvestInput.value = 40;
+    }
+    // custom = do nothing, it's whatever user set
+    syncMfFdLabels();
+    syncRateLabels();
+    saveState();
+  };
+
+  profileBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const prof = btn.dataset.profile;
+      setProfile(prof);
+      if (prof !== 'custom') calculate();
+    });
+  });
+
+  // --- Other incomes ---
+  const addIncomeRow = (name = '', amt = '') => {
+    const row = document.createElement('div');
+    row.className = 'income-row';
+    row.innerHTML = `
+      <input type="text" class="income-name" placeholder="Label e.g. Salary" value="${name}">
+      <input type="number" class="income-amt" placeholder="₹/month" min="0" value="${amt}">
+      <button class="income-del" type="button">✕</button>
+    `;
+    incomeList.appendChild(row);
+  };
+
+  const getOtherIncomeTotal = () => {
+    let t = 0;
+    incomeList.querySelectorAll('.income-amt').forEach(i => {
+      const v = parseFloat(i.value) || 0;
+      t += v;
+    });
+    return t;
+  };
+
+  const updateOtherIncomeTotal = () => {
+    const t = getOtherIncomeTotal();
+    otherIncomeTotalEl.textContent = fmt(t);
+  };
+
+  addIncomeBtn.addEventListener('click', () => {
+    addIncomeRow();
+    saveState();
+  });
+
+  incomeList.addEventListener('input', (e) => {
+    if (e.target.classList.contains('income-amt') ||
+        e.target.classList.contains('income-name')) {
+      updateOtherIncomeTotal();
+      saveState();
+    }
+  });
+
+  incomeList.addEventListener('click', (e) => {
+    if (e.target.classList.contains('income-del')) {
+      e.target.parentElement.remove();
+      updateOtherIncomeTotal();
+      saveState();
+    }
+  });
+
+  // --- Jars ---
+  const renderJars = (savedJars) => {
+    jarGrid.innerHTML = '';
+    const merged = DEFAULT_JARS.map(j => {
+      const found = savedJars?.find(s => s.key === j.key);
+      return { ...j, pct: found ? (found.pct ?? j.pct) : j.pct };
+    });
+
+    merged.forEach(jar => {
+      const div = document.createElement('div');
+      div.className = 'jar';
+      div.dataset.key = jar.key;
+      div.innerHTML = `
+        <div class="jar-name">${jar.key} • ${jar.name}</div>
+        <div class="jar-pct-row">
+          <span>%</span>
+          <input type="number" class="jar-pct-input" min="0" max="100" step="0.5" value="${jar.pct}">
+          <span>of monthly</span>
+        </div>
+        <div class="jar-amt" data-role="amt">₹0</div>
+        <div class="jar-sub">${jar.desc}</div>
+        <div class="jar-pill">6-Jar</div>
+      `;
+      jarGrid.appendChild(div);
+    });
+
+    jarGrid.addEventListener('input', (e) => {
+      if (e.target.classList.contains('jar-pct-input')) {
+        updateJars();
+        calculate(); // recalc anchor / corpus impact
+        saveState();
+      }
+    }, { once: true });
+
+    updateJars();
+  };
+
+  const getJarBaseAmount = () => {
+    const desired = parseFloat(monthlyIncomeInput.value) || 0;
+    return desired > 0 ? desired : 0;
+  };
+
+  const updateJars = () => {
+    const base = getJarBaseAmount();
+    const jars = jarGrid.querySelectorAll('.jar');
+    let totalPct = 0;
+
+    jars.forEach(j => {
+      const pctInput = j.querySelector('.jar-pct-input');
+      const pct = parseFloat(pctInput.value) || 0;
+      totalPct += pct;
+      const amtEl = j.querySelector('[data-role="amt"]');
+      const amt = base * (pct / 100);
+      amtEl.textContent = fmt(amt);
+    });
+
+    jarPctTotalEl.textContent = totalPct.toFixed(1) + '%';
+    jarTotalWarn.style.display = Math.abs(totalPct - 100) < 0.05 ? 'none' : 'inline';
+    jarBaseModeEl.textContent = 'Desired monthly income (Year 1)';
+  };
+
+  // --- Core sync ---
+  const updateCrView = () => {
+    const c = parseFloat(capitalInput.value) || 0;
+    crView.textContent = '≈ ' + (c / 1e7).toFixed(2) + ' Cr';
+  };
+
+  const syncMfFdLabels = () => {
+    const mfPct = parseFloat(mfPctRange.value) || 0;
+    const fdPct = 100 - mfPct;
+    mfPctVal.textContent = mfPct.toFixed(0);
+    fdPctVal.textContent = fdPct.toFixed(0);
+    mfPctLabelSmall.textContent = mfPct.toFixed(0) + '%';
+    fdPctLabelSmall.textContent = fdPct.toFixed(0) + '%';
+  };
+
+  const syncRateLabels = () => {
+    const m = parseFloat(mfRateInput.value) || 0;
+    const f = parseFloat(fdRateInput.value) || 0;
+    mfRateLabel.textContent = m + '%';
+    fdRateLabel.textContent = f + '%';
+  };
+
+  // --- Longevity simulation (uses required-from-portfolio, not total) ---
+  function runLongevitySimulation({ capital, monthlyNeed, blendedRate, horizon, infl, drift, reinvestPct }) {
+    if (capital <= 0 || monthlyNeed <= 0 || blendedRate <= 0 || horizon <= 0) {
+      return { ok: false, message: 'Provide capital, need-from-portfolio, returns & horizon.', brokeYear: null, finalCapital: capital };
+    }
+
+    const needGrowth = (infl + drift) / 100;   // annual growth of required income from portfolio
+    const reinvest = reinvestPct / 100;
+    let cap = capital;
+    let yearlyNeed = monthlyNeed * 12;
+
+    for (let year = 1; year <= horizon; year++) {
+      const yieldAmt = cap * blendedRate;
+      const surplus = yieldAmt - yearlyNeed;
+
+      if (surplus >= 0) {
+        cap += surplus * reinvest; // reinvest part of surplus
+      } else {
+        cap += surplus; // dip into capital
+      }
+
+      if (cap <= 0) {
+        return {
+          ok: false,
+          brokeYear: year,
+          finalCapital: 0,
+          message: `Capital exhausted around year ${year} under these assumptions.`
+        };
+      }
+
+      yearlyNeed *= (1 + needGrowth);
+    }
+
+    return {
+      ok: true,
+      brokeYear: null,
+      finalCapital: cap,
+      message: `Plan survives ${horizon} years. End corpus (straight-line model): ${fmt(cap)}.`
+    };
+  }
+
+  // --- Anchor jar back-solve ---
+  const getJarPct = (key) => {
+    const input = jarGrid.querySelector(`.jar[data-key="${key}"] .jar-pct-input`);
+    return input ? (parseFloat(input.value) || 0) : 0;
+  };
+
+  function updateAnchorJar(blendedRate) {
+    const anchorKey = anchorJarSelect.value;
+    const target = parseFloat(anchorTargetInput.value) || 0;
+
+    if (!anchorKey || anchorKey === 'NONE' || target <= 0) {
+      anchorResultEl.textContent =
+        'Optional: pick a jar and set its target to see required monthly base & corpus.';
+      return;
+    }
+
+    const pct = getJarPct(anchorKey);
+    if (!pct) {
+      anchorResultEl.textContent =
+        'Selected anchor jar currently has 0%. Increase its % to use it as a driver.';
+      return;
+    }
+    if (!blendedRate || blendedRate <= 0) {
+      anchorResultEl.textContent =
+        'Set a sensible MF/FD mix & returns to back-calc corpus from anchor jar.';
+      return;
+    }
+
+    const baseMonthly = target / (pct / 100);
+    const requiredCorpus = (baseMonthly * 12) / blendedRate;
+
+    anchorResultEl.innerHTML =
+      `To fund <b>${fmt(target)}</b>/month into <b>${anchorKey}</b> at ${pct.toFixed(1)}% of inflow,` +
+      ` you need total monthly base ≈ <b>${fmt(baseMonthly)}</b>` +
+      ` and corpus ≈ <b>${fmt(requiredCorpus)}</b> at current blended returns (ignoring other incomes here for simplicity).`;
+  }
+
+  // --- Core calculate ---
+  const calculate = () => {
+    const monthly = parseFloat(monthlyIncomeInput.value) || 0;
+    const capital = parseFloat(capitalInput.value) || 0;
+    const mfPct = parseFloat(mfPctRange.value) || 0;
+    const fdPct = 100 - mfPct;
+    const mfRate = parseFloat(mfRateInput.value) || 0;
+    const fdRate = parseFloat(fdRateInput.value) || 0;
+    const otherIncome = getOtherIncomeTotal();
+
+    if (monthly <= 0 || capital <= 0) {
+      statusLine.style.display = 'block';
+      statusLine.className = 'status-line status-warn';
+      statusText.textContent = 'Enter desired monthly income and available capital. Add other incomes if any.';
+      targetAnnualEl.textContent = '₹0';
+      needFromPortfolioAnnualEl.textContent = '₹0';
+      requiredCorpusEl.textContent = '₹0';
+      mfFdBlock.style.display = 'none';
+      advResultEl.textContent = 'Provide inputs and run calculation to see longevity simulation.';
+      updateJars();
+      saveState();
+      updateAnchorJar(0);
+      return;
+    }
+
+    const mfWeight = mfPct / 100;
+    const fdWeight = fdPct / 100;
+    const blendedRate = (mfWeight * mfRate + fdWeight * fdRate) / 100; // decimal
+
+    const targetAnnual = monthly * 12;
+    const needFromPortfolioMonthly = Math.max(0, monthly - otherIncome);
+    const needFromPortfolioAnnual = needFromPortfolioMonthly * 12;
+    const currentAnnual = capital * blendedRate;
+    const currentMonthly = currentAnnual / 12;
+
+    targetAnnualEl.textContent = fmt(targetAnnual);
+    needFromPortfolioAnnualEl.textContent = fmt(needFromPortfolioAnnual);
+
+    if (blendedRate > 0) {
+      const requiredCorpus = needFromPortfolioAnnual > 0
+        ? (needFromPortfolioAnnual / blendedRate)
+        : 0;
+      requiredCorpusEl.textContent = fmt(requiredCorpus);
+
+      if (needFromPortfolioAnnual === 0) {
+        statusLine.style.display = 'block';
+        statusLine.className = 'status-line status-ok';
+        statusText.textContent =
+          'Other income alone covers your target. Corpus becomes pure FFA / legacy / safety. Use jars to script generosity & joy.';
+      } else if (currentAnnual + 1 >= needFromPortfolioAnnual) {
+        statusLine.style.display = 'block';
+        statusLine.className = 'status-line status-ok';
+        statusText.textContent =
+          `At this mix, corpus yield ≈ ${fmt(currentMonthly)} / month, ` +
+          `which can cover required-from-portfolio ${fmt(needFromPortfolioMonthly)} / month. ` +
+          `Other incomes can now supercharge FFA / PLAY / GIVE.`;
+      } else {
+        const shortfallMonthly = (needFromPortfolioAnnual - currentAnnual) / 12;
+        statusLine.style.display = 'block';
+        statusLine.className = 'status-line status-warn';
+        statusText.textContent =
+          `Corpus yield ≈ ${fmt(currentMonthly)} / month vs required-from-portfolio ` +
+          `${fmt(needFromPortfolioMonthly)} / month. Shortfall ≈ ${fmt(shortfallMonthly)} / month. ` +
+          `Options: adjust target, add income streams, increase corpus, or tilt risk.`;
+      }
+
+      // MF / FD breakup
+      const mfAmt = capital * mfWeight;
+      const fdAmt = capital * fdWeight;
+      const mfYield = mfAmt * (mfRate / 100);
+      const fdYield = fdAmt * (fdRate / 100);
+      mfAmtEl.textContent = fmt(mfAmt);
+      fdAmtEl.textContent = fmt(fdAmt);
+      mfYieldLine.textContent = `Est. yearly yield: ${fmt(mfYield)} (${mfRate.toFixed(1)}%)`;
+      fdYieldLine.textContent = `Est. yearly yield: ${fmt(fdYield)} (${fdRate.toFixed(1)}%)`;
+      mfFdBlock.style.display = 'grid';
+    } else {
+      requiredCorpusEl.textContent = '₹0';
+      statusLine.style.display = 'block';
+      statusLine.className = 'status-line status-warn';
+      statusText.textContent = 'Blended return is zero/negative. Adjust MF/FD rates or split.';
+      mfFdBlock.style.display = 'none';
+    }
+
+    // Longevity check based on need-from-portfolio
+    const horizon = parseFloat(horizonInput.value) || 30;
+    const infl = parseFloat(inflationInput.value) || 5;
+    const drift = parseFloat(lifeDriftInput.value) || 2;
+    const reinvestPct = parseFloat(reinvestInput.value) || 50;
+
+    const sim = runLongevitySimulation({
+      capital,
+      monthlyNeed: needFromPortfolioMonthly,
+      blendedRate,
+      horizon,
+      infl,
+      drift,
+      reinvestPct
+    });
+
+    if (!sim.ok) {
+      advResultEl.innerHTML = `
+        <span class="adv-bad">✖ ${sim.message}</span>
+        <span>Try: lower dependence on corpus (more side incomes), adjust target, or revisit risk mix.</span>
+      `;
+    } else {
+      advResultEl.innerHTML = `
+        <span class="adv-ok">✔ ${sim.message}</span>
+        <span>Revisit assumptions yearly — inflation, health, returns & work horizon will shift.</span>
+      `;
+    }
+
+    updateJars();
+    updateOtherIncomeTotal();
+    updateAnchorJar(blendedRate);
+    saveState();
+  };
+
+  const resetAll = () => {
+    monthlyIncomeInput.value = '';
+    capitalInput.value = '';
+    mfPctRange.value = 60;
+    mfRateInput.value = 12;
+    fdRateInput.value = 7;
+    horizonInput.value = 30;
+    inflationInput.value = 5;
+    lifeDriftInput.value = 2;
+    reinvestInput.value = 50;
+    incomeList.innerHTML = '';
+    otherIncomeTotalEl.textContent = '₹0';
+    anchorJarSelect.value = 'NONE';
+    anchorTargetInput.value = '';
+
+    profileBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.profile === 'custom');
+    });
+
+    updateCrView();
+    syncMfFdLabels();
+    syncRateLabels();
+
+    targetAnnualEl.textContent = '₹0';
+    needFromPortfolioAnnualEl.textContent = '₹0';
+    requiredCorpusEl.textContent = '₹0';
+
+    statusLine.style.display = 'none';
+    mfFdBlock.style.display = 'none';
+    advResultEl.textContent = 'Run the main calculation to see if this plan survives your chosen horizon.';
+    anchorResultEl.textContent =
+      'Optional: pick a jar and set its target to see required monthly base & corpus.';
+
+    renderJars(DEFAULT_JARS);
+    saveState();
+  };
+
+  // --- Events ---
+  capitalInput.addEventListener('input', () => { updateCrView(); saveState(); });
+  monthlyIncomeInput.addEventListener('input', () => { updateJars(); saveState(); });
+
+  mfPctRange.addEventListener('input', () => {
+    syncMfFdLabels();
+    profileBtns.forEach(b => b.classList.remove('active'));
+    document.querySelector('.profile-btn[data-profile="custom"]').classList.add('active');
+    saveState();
+  });
+
+  mfRateInput.addEventListener('input', () => {
+    syncRateLabels();
+    profileBtns.forEach(b => b.classList.remove('active'));
+    document.querySelector('.profile-btn[data-profile="custom"]').classList.add('active');
+    saveState();
+  });
+
+  fdRateInput.addEventListener('input', () => {
+    syncRateLabels();
+    profileBtns.forEach(b => b.classList.remove('active'));
+    document.querySelector('.profile-btn[data-profile="custom"]').classList.add('active');
+    saveState();
+  });
+
+  horizonInput.addEventListener('input', saveState);
+  inflationInput.addEventListener('input', saveState);
+  lifeDriftInput.addEventListener('input', saveState);
+  reinvestInput.addEventListener('input', saveState);
+
+  anchorJarSelect.addEventListener('change', () => { calculate(); });
+  anchorTargetInput.addEventListener('input', () => { calculate(); });
+
+  calcBtn.addEventListener('click', calculate);
+  resetBtn.addEventListener('click', resetAll);
+
+  // --- Init ---
+  (function init() {
+    const state = loadState();
+    renderJars(state?.jars);
+
+    if (state) {
+      if (state.monthly) monthlyIncomeInput.value = state.monthly;
+      if (state.capital) capitalInput.value = state.capital;
+      if (typeof state.mfPct === 'number') mfPctRange.value = state.mfPct;
+      if (state.mfRate) mfRateInput.value = state.mfRate;
+      if (state.fdRate) fdRateInput.value = state.fdRate;
+      if (state.horizon) horizonInput.value = state.horizon;
+      if (state.inflation) inflationInput.value = state.inflation;
+      if (state.lifeDrift) lifeDriftInput.value = state.lifeDrift;
+      if (state.reinvest !== undefined) reinvestInput.value = state.reinvest;
+
+      if (state.incomes && Array.isArray(state.incomes)) {
+        state.incomes.forEach(i => addIncomeRow(i.name, i.amt || ''));
+      }
+      updateOtherIncomeTotal();
+
+      if (state.anchorJar) anchorJarSelect.value = state.anchorJar;
+      if (state.anchorTarget) anchorTargetInput.value = state.anchorTarget;
+
+      updateCrView();
+      syncMfFdLabels();
+      syncRateLabels();
+      calculate();
+    } else {
+      addIncomeRow('Salary', '');
+      updateOtherIncomeTotal();
+      updateCrView();
+      syncMfFdLabels();
+      syncRateLabels();
+      updateJars();
+    }
+  })();
+</script>
+</body>
+</html>
