@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Understanding Your 6-Jar Wealth Wisdom Tool</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-card: #1e293b;
+      --accent: #38bdf8;
+      --accent-green: #4ade80;
+      --accent-purple: #a78bfa;
+      --accent-orange: #fb923c;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --border: rgba(148,163,253,0.18);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: linear-gradient(to bottom, #0f172a, #020617);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 0;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
+      padding: 80px 20px;
+      text-align: center;
+      border-bottom: 4px solid var(--accent);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      font-weight: 800;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      opacity: 0.95;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+
+    .section {
+      margin-bottom: 80px;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .section-title .emoji {
+      font-size: 2.5rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: var(--accent-green);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .simple-story {
+      background: linear-gradient(135deg, rgba(56,189,248,0.1), rgba(167,139,250,0.1));
+      border: 2px solid var(--accent);
+      padding: 40px;
+      border-radius: 20px;
+      font-size: 1.2rem;
+      line-height: 2;
+    }
+
+    .simple-story ol {
+      padding-left: 30px;
+    }
+
+    .simple-story li {
+      margin-bottom: 15px;
+      padding-left: 10px;
+    }
+
+    .game-screens {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .screen {
+      background: linear-gradient(135deg, var(--bg-card), #0f172a);
+      padding: 25px;
+      border-radius: 15px;
+      border: 2px solid;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .screen:hover {
+      transform: translateY(-5px);
+    }
+
+    .screen.screen-1 { border-color: var(--accent); }
+    .screen.screen-2 { border-color: var(--accent-green); }
+    .screen.screen-3 { border-color: var(--accent-purple); }
+    .screen.screen-4 { border-color: var(--accent-orange); }
+
+    .screen .screen-number {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .screen.screen-1 .screen-number { color: var(--accent); }
+    .screen.screen-2 .screen-number { color: var(--accent-green); }
+    .screen.screen-3 .screen-number { color: var(--accent-purple); }
+    .screen.screen-4 .screen-number { color: var(--accent-orange); }
+
+    .screen h4 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .screen p {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .function-box {
+      background: var(--bg-card);
+      border-left: 5px solid;
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 10px;
+    }
+
+    .function-box.f1 { border-color: var(--accent); }
+    .function-box.f2 { border-color: var(--accent-green); }
+    .function-box.f3 { border-color: var(--accent-purple); }
+    .function-box.f4 { border-color: var(--accent-orange); }
+
+    .function-box h4 {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .function-box .badge {
+      font-size: 0.8rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(56,189,248,0.2);
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .function-box p {
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .example {
+      background: rgba(0,0,0,0.3);
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+      font-family: monospace;
+      font-size: 0.95rem;
+      color: var(--accent-green);
+    }
+
+    .big-idea {
+      background: linear-gradient(135deg, #7c3aed, #ec4899);
+      padding: 50px;
+      border-radius: 20px;
+      text-align: center;
+      color: white;
+      font-size: 1.5rem;
+      line-height: 2;
+      font-weight: 500;
+      box-shadow: 0 20px 50px rgba(124,58,237,0.4);
+    }
+
+    .three-line {
+      background: var(--bg-card);
+      border: 3px dashed var(--accent);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+    }
+
+    .three-line h3 {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+    }
+
+    .three-line .step {
+      font-size: 1.5rem;
+      margin: 20px 0;
+      padding: 20px;
+      background: rgba(56,189,248,0.1);
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .three-line .step .number {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      background: var(--accent);
+      color: #020617;
+      border-radius: 50%;
+      margin-right: 15px;
+      font-weight: 800;
+    }
+
+    .jar-visual {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .jar {
+      background: var(--bg-card);
+      border: 2px solid var(--accent);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .jar .jar-name {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .jar .jar-pct {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-green);
+    }
+
+    .jar .jar-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, var(--accent), var(--accent-green));
+      padding: 50px;
+      border-radius: 20px;
+      text-align: center;
+      color: #020617;
+      margin-top: 60px;
+    }
+
+    .cta-box h3 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      font-weight: 800;
+    }
+
+    .cta-box a {
+      display: inline-block;
+      background: #020617;
+      color: white;
+      padding: 15px 40px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-top: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .cta-box a:hover {
+      transform: scale(1.05);
+    }
+
+    .visual-flow {
+      background: var(--bg-card);
+      padding: 30px;
+      border-radius: 20px;
+      margin-top: 30px;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      padding: 20px;
+      background: rgba(56,189,248,0.05);
+      border-radius: 10px;
+      border-left: 4px solid var(--accent);
+    }
+
+    .flow-step .step-num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      min-width: 60px;
+    }
+
+    .flow-step .step-content h4 {
+      color: var(--accent-green);
+      margin-bottom: 8px;
+    }
+
+    .flow-step .step-content p {
+      color: var(--muted);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 1.1rem; }
+      .section-title { font-size: 1.8rem; }
+      .big-idea { font-size: 1.2rem; padding: 30px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1>🎯 Understanding Your 6-Jar Wealth Wisdom Tool</h1>
+    <p>A Simple Guide to Multi-Generational Financial Planning</p>
+  </div>
+
+  <div class="container">
+    <!-- What Is This Tool? -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="emoji">💡</span>
+        What Is This Tool?
+      </h2>
+      
+      <div class="card">
+        <h3>🎮 Think of it as a Financial Time Machine</h3>
+        <p>
+          This tool helps you see if your money will last through your entire retirement. 
+          It's like a calculator that acts as a time machine — you put your financial life in, 
+          and it shows you the next 30-50 years.
+        </p>
+      </div>
+
+      <div class="simple-story">
+        <h3 style="margin-bottom: 20px; color: var(--accent);">⭐ The Simple Story (Explained Like You're in 5th Grade)</h3>
+        <p style="margin-bottom: 20px;">Imagine you want to run your home for many years using your savings. You don't want your money to finish early.</p>
+        
+        <p style="margin-bottom: 15px; font-weight: 600;">To manage this, you:</p>
+        <ol>
+          <li>Decide your monthly spending (₹1,00,000)</li>
+          <li>Add your savings (₹3,00,00,000)</li>
+          <li>See how much money grows every year (returns)</li>
+          <li>Divide your money into 6 jars (NEC, PLAY, FFA, etc.)</li>
+          <li>Spend from some jars, and save and grow the others</li>
+          <li>Check if the money survives 30–50 years</li>
+          <li>Add special events (daughter's wedding, son's setup)</li>
+          <li>See charts and results</li>
+        </ol>
+
+        <p style="margin-top: 20px; font-size: 1.1rem; font-weight: 700; color: var(--accent-green);">
+          ✨ This whole tool is doing just these 8 things — nothing more magical than that!
+        </p>
+      </div>
+    </div>
+
+    <!-- The 4 Screens -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="emoji">🎮</span>
+        Think Like a Video Game with 4 Screens
+      </h2>
+
+      <div class="game-screens">
+        <div class="screen screen-1">
+          <div class="screen-number">Screen 1</div>
+          <h4>Core Planning</h4>
+          <p>Set your income, savings, age, and investment returns</p>
+        </div>
+
+        <div class="screen screen-2">
+          <div class="screen-number">Screen 2</div>
+          <h4>Projections</h4>
+          <p>See the money graph for 5, 10, 20, or 50 years</p>
+        </div>
+
+        <div class="screen screen-3">
+          <div class="screen-number">Screen 3</div>
+          <h4>Posterity Planning</h4>
+          <p>Future goals: daughter's wedding, son's setup</p>
+        </div>
+
+        <div class="screen screen-4">
+          <div class="screen-number">Screen 4</div>
+          <h4>Intelligence</h4>
+          <p>Get advice, warnings, and risk analysis</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- The 6 Jars Explained -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="emoji">🏺</span>
+        The 6 Jars System
+      </h2>
+
+      <div class="card">
+        <h3>Why 6 Jars?</h3>
+        <p>
+          Instead of one big pile of money, you divide your monthly income into 6 different purposes. 
+          Some jars you spend from immediately (like groceries), others you let grow for years (like retirement savings).
+        </p>
+      </div>
+
+      <div class="jar-visual">
+        <div class="jar">
+          <div class="jar-name">NEC</div>
+          <div class="jar-pct">55%</div>
+          <div class="jar-desc">Necessities<br>(Spent immediately)</div>
+        </div>
+        
+        <div class="jar">
+          <div class="jar-name">FFA</div>
+          <div class="jar-pct">10%</div>
+          <div class="jar-desc">Financial Freedom<br>(Accumulates & grows)</div>
+        </div>
+
+        <div class="jar">
+          <div class="jar-name">LTSS</div>
+          <div class="jar-pct">10%</div>
+          <div class="jar-desc">Long-Term Savings<br>(Accumulates & grows)</div>
+        </div>
+
+        <div class="jar">
+          <div class="jar-name">EDU</div>
+          <div class="jar-pct">10%</div>
+          <div class="jar-desc">Education & Learning<br>(Accumulates for goals)</div>
+        </div>
+
+        <div class="jar">
+          <div class="jar-name">PLAY</div>
+          <div class="jar-pct">10%</div>
+          <div class="jar-desc">Joy & Experiences<br>(Spent on happiness)</div>
+        </div>
+
+        <div class="jar">
+          <div class="jar-name">GIVE</div>
+          <div class="jar-pct">5%</div>
+          <div class="jar-desc">Charity & Giving<br>(Spent immediately)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The 4 Key Functions -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="emoji">🧠</span>
+        The 4 Most Important Functions
+      </h2>
+
+      <p style="margin-bottom: 30px; font-size: 1.1rem; color: var(--muted);">
+        You don't need to understand the code — just understand what these 4 functions do:
+      </p>
+
+      <div class="function-box f1">
+        <h4>
+          <span class="badge">Function 1</span>
+          applyTaxation()
+        </h4>
+        <p><strong>Think:</strong> This is like a teacher checking your marks</p>
+        <p>
+          • MF (Mutual Funds) earns 12% → teacher cuts 10% tax → you get 10.8%<br>
+          • FD (Fixed Deposit) earns 7% → teacher cuts 25% tax → you get 5.25%
+        </p>
+        <p style="margin-top: 15px; color: var(--accent-green);">
+          <strong>Purpose:</strong> Makes the returns realistic after taxation (LTCG and TDS)
+        </p>
+      </div>
+
+      <div class="function-box f2">
+        <h4>
+          <span class="badge">Function 2</span>
+          getJarAllocations()
+        </h4>
+        <p><strong>Think:</strong> This divides your income into 6 jars</p>
+        <div class="example">
+If you earn ₹1,00,000/month:
+• NEC  = ₹55,000
+• FFA  = ₹10,000
+• LTSS = ₹10,000
+• EDU  = ₹10,000
+• PLAY = ₹10,000
+• GIVE = ₹5,000
+        </div>
+        <p style="margin-top: 15px; color: var(--accent-green);">
+          <strong>Purpose:</strong> Shows how much money each jar gets every month
+        </p>
+      </div>
+
+      <div class="function-box f3">
+        <h4>
+          <span class="badge">Function 3</span>
+          runUnifiedLongevitySimulation()
+        </h4>
+        <p><strong>Think:</strong> This is the heart of the tool — imagine your savings is a water tank</p>
+        <p>
+          Each year:<br>
+          • 💧 Water comes IN (investment returns)<br>
+          • 💧 Water goes OUT (your expenses)<br>
+          • 💧 Some water is poured into jars (savings jars)<br>
+          • 💧 Jars also grow like smaller water bottles
+        </p>
+        <p style="margin-top: 15px; color: var(--accent-green);">
+          <strong>The Check:</strong> Will the big tank become empty early? Or will it survive all years?<br>
+          If empty → ❌ FAIL | If water lasts → ✅ PASS
+        </p>
+      </div>
+
+      <div class="function-box f4">
+        <h4>
+          <span class="badge">Function 4</span>
+          runBaselineProjection() + runRealisticMonteCarlo()
+        </h4>
+        <p><strong>Think:</strong> These show the graph of your future</p>
+        <p>
+          • <strong>Baseline</strong> = calm weather (stable returns)<br>
+          • <strong>Monte Carlo</strong> = storms, rains, droughts (good/bad years randomly)
+        </p>
+        <p style="margin-top: 15px; color: var(--accent-green);">
+          <strong>Purpose:</strong> Draw a line on the chart showing your money level every year for 5–50 years
+        </p>
+      </div>
+    </div>
+
+    <!-- How It Actually Works -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="emoji">⚙️</span>
+        How It Actually Works (Step by Step)
+      </h2>
+
+      <div class="visual-flow">
+        <div class="flow-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>You Enter Your Numbers</h4>
+            <p>Monthly need: ₹1,00,000 | Capital: ₹2 Crores | Age: 45 | MF/FD split: 60/40</p>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Tool Calculates Your Returns</h4>
+            <p>60% in MF @ 12% (after 10% tax) + 40% in FD @ 7% (after 25% tax) = 8.58% blended return</p>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Money Gets Divided Into Jars</h4>
+            <p>Each month, ₹1,00,000 split across 6 jars. Some jars accumulate (FFA, LTSS, EDU), others are spent (NEC, GIVE, PLAY)</p>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Simulation Runs Year by Year</h4>
+            <p>For each year: corpus earns returns → withdrawals made → jars filled → inflation applied → check if corpus survives</p>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>Special Events Subtracted</h4>
+            <p>Daughter's wedding in 2028: ₹50L from EDU jar (inflation-adjusted to ₹57.9L)</p>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <h4>Results Displayed</h4>
+            <p>Chart shows corpus trajectory | Jar balances visible | CSV export available | Pass/Fail verdict</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Big Idea -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="emoji">💎</span>
+        The Biggest Idea
+      </h2>
+
+      <div class="big-idea">
+        This huge code file is basically:<br>
+        <strong style="font-size: 1.8rem; color: #fef08a;">A calculator that acts like a time machine.</strong><br>
+        You put your financial life in it.<br>
+        It shows you your next 50 years.<br>
+        <br>
+        Everything else is just design, buttons, colors, and layout.
+      </div>
+    </div>
+
+    <!-- Ultra Simple -->
+    <div class="section">
+      <div class="three-line">
+        <h3>If You Want It EVEN MORE SIMPLE:</h3>
+        
+        <div class="step">
+          <span class="number">1</span>
+          Take your money
+        </div>
+
+        <div class="step">
+          <span class="number">2</span>
+          Spend some, save some, grow some
+        </div>
+
+        <div class="step">
+          <span class="number">3</span>
+          Check if it survives until old age
+        </div>
+
+        <p style="margin-top: 30px; font-size: 1.3rem; font-weight: 700; color: var(--accent);">
+          That's it. The whole thing is just this. 🎯
+        </p>
+      </div>
+    </div>
+
+    <!-- Understanding the Outputs -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="emoji">📊</span>
+        Understanding the Outputs
+      </h2>
+
+      <div class="card">
+        <h3>✅ What "Pass" Means</h3>
+        <p>
+          When the tool says <strong>"✓ Survives 30 years"</strong>, it means:<br>
+          Your corpus (savings) generates enough returns every year to cover your expenses for all 30 years, 
+          even after accounting for inflation, healthcare costs, and special goals like weddings.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>⚠️ What "Fail" Means</h3>
+        <p>
+          When the tool says <strong>"✖ Capital depleted at Year 18"</strong>, it means:<br>
+          Your corpus runs out of money in Year 18 because withdrawals + expenses exceed returns. 
+          You need to either reduce spending, increase capital, or adjust your expectations.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>📈 Reading the Chart</h3>
+        <p>
+          The line going down = corpus reducing over time<br>
+          The line going up = corpus growing<br>
+          Flat line = balanced (withdrawals equal returns)<br>
+          <br>
+          <strong>Colored lines:</strong> Show individual jar balances (FFA, LTSS, EDU)
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>🎲 Monte Carlo Results</h3>
+        <p>
+          Instead of one future, Monte Carlo shows 100 possible futures with good and bad years mixed.<br>
+          <br>
+          <strong>Median (50th %ile):</strong> Middle outcome<br>
+          <strong>Best (90th %ile):</strong> Optimistic scenario<br>
+          <strong>Worst (10th %ile):</strong> Pessimistic scenario<br>
+          <strong>Failure Rate:</strong> How many of the 100 runs depleted capital
+        </p>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="cta-box">
+      <h3>Ready to Use the Tool?</h3>
+      <p style="font-size: 1.1rem; margin-bottom: 10px;">
+        Now that you understand how it works, open the tool and see your financial future!
+      </p>
+      <a href="6jar-fully-coherent.html">Open the 6-Jar Tool →</a>
+    </div>
+  </div>
+
+  <div style="background: #020617; padding: 40px 20px; text-align: center; color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--border);">
+    <p>6-Jar Wealth Wisdom Tool © 2025 | Multi-Generational Financial Planning Made Simple</p>
+    <p style="margin-top: 10px;">Built with ❤️ for clarity, coherence, and confidence in your financial future</p>
+  </div>
+</body>
+</html>
